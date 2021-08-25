@@ -61,6 +61,7 @@ input {
   font-size: 14px;
 }
 .filter {
+  position: relative;
   font-size: 12px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
@@ -75,7 +76,7 @@ input {
 }
 .dropdown-filter {
   display: none;
-  position: relative;
+  position: absolute;
   margin-top: 5px;
   background-color: $Dark_Blue;
   display: flex;
@@ -83,6 +84,7 @@ input {
   padding: 1rem 1.5rem;
   gap: 0.2rem;
   border-radius: 5px;
+  width: 100%;
   p {
     padding: 0.3rem;
     cursor: pointer;
