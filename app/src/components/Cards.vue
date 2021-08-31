@@ -1,18 +1,18 @@
 <template>
-  <div class="card">
+  <div class="card" @click="selectThisCountry">
     <div class="flag-wrapper">
-      <img :src="flag" alt="" />
+      <img :src="country.flag" alt="" />
     </div>
     <div class="country-details">
-      <h1>{{ name }}</h1>
+      <h1>{{ country.name }}</h1>
       <h2>
-        Population: <span>{{ numberWithCommas(population) }}</span>
+        Population: <span>{{ numberWithCommas }}</span>
       </h2>
       <h2>
-        Region: <span>{{ region }}</span>
+        Region: <span>{{ country.region }}</span>
       </h2>
       <h2>
-        Capital: <span>{{ capital }}</span>
+        Capital: <span>{{ country.capital }}</span>
       </h2>
     </div>
   </div>
@@ -22,25 +22,21 @@
 export default {
   name: "Cards",
   props: {
-    name: {
-      type: String,
+    country: {
+      type: Object,
     },
-    flag: {
-      type: String,
-    },
-    population: {
-      type: Number,
-    },
-    region: {
-      type: String,
-    },
-    capital: {
-      type: String,
+  },
+  computed: {
+    numberWithCommas() {
+      return this.country.population
+        .toString()
+        .replace(/\B(?=(\d{3})+(?!\d))/g, ",");
     },
   },
   methods: {
-    numberWithCommas(x) {
-      return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    selectThisCountry() {
+      console.log("Yo");
+      this.$router.push({ path: `/country/${this.country.alpha3Code}` });
     },
   },
 };
@@ -49,6 +45,7 @@ export default {
 <style lang="scss" scoped>
 @import "../scss/_variables.scss";
 .card {
+  cursor: pointer;
   height: 100%;
   background-color: $Dark_Blue;
   border-radius: 5px;

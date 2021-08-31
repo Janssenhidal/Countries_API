@@ -6,11 +6,7 @@
         <Cards
           v-for="(country, index) in countries"
           :key="index"
-          :name="country.name"
-          :population="country.population"
-          :region="country.region"
-          :capital="country.capital"
-          :flag="country.flag"
+          :country="country"
         ></Cards>
       </div>
     </div>
@@ -19,8 +15,8 @@
 
 <script>
 import axios from "axios";
-import SearchArea from "./Search_Area.vue";
-import Cards from "./Cards.vue";
+import SearchArea from "../components/Search_Area.vue";
+import Cards from "../components/Cards.vue";
 export default {
   name: "Body",
   components: {
