@@ -35,7 +35,7 @@ export default {
           "https://restcountries.eu/rest/v2/all"
         );
         this.countries = response.data;
-        console.log(this.countries);
+        // console.log(this.countries);
       } catch (error) {
         console.error(error);
       }

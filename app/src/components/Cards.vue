@@ -35,8 +35,11 @@ export default {
   },
   methods: {
     selectThisCountry() {
-      console.log("Yo");
-      this.$router.push({ path: `/country/${this.country.alpha3Code}` });
+      let data = this.country;
+      console.log(data);
+      this.$router.push({
+        path: `/country/${this.country.alpha3Code}`,
+      });
     },
   },
 };

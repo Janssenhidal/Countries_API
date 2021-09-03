@@ -1,15 +1,17 @@
 <template>
-  <h1>About</h1>
-  <p>
-    Lorem ipsum dolor sit amet consectetur adipisicing elit. Id dicta
-    accusantium, nostrum quisquam distinctio iste vitae ex unde at velit ad
-    impedit, atque labore repellendus similique esse aperiam alias! Corporis.
-    <router-link to="/">Home Page</router-link>
-  </p>
+  <h1>Idk</h1>
 </template>
 
 <script>
-export default {};
+export default {
+  name: "CountryDetails",
+  return() {
+    return {
+      countryData: [],
+    };
+  },
+  created() {},
+};
 </script>
 
 <style lang="scss" scoped>
