@@ -1,11 +1,10 @@
 <template>
   <main>
-    <h3>{{ joke }}</h3>
     <div class="homepage">
       <SearchArea />
       <div class="cards">
         <Cards
-          v-for="(country, index) in countries"
+          v-for="(country, index) in allCountries"
           :key="index"
           :country="country"
         ></Cards>
@@ -15,7 +14,7 @@
 </template>
 
 <script>
-import axios from "axios";
+import { mapState } from "vuex";
 import SearchArea from "../components/Search_Area.vue";
 import Cards from "../components/Cards.vue";
 export default {
@@ -24,30 +23,11 @@ export default {
     SearchArea,
     Cards,
   },
-  data() {
-    return {
-      joke: "",
-      countries: [],
-    };
-  },
-  methods: {
-    async getCountries() {
-      try {
-        const response = await axios.get(
-          "https://restcountries.eu/rest/v2/all"
-        );
-        this.countries = response.data;
-        // console.log(this.countries);
-      } catch (error) {
-        console.error(error);
-      }
-    },
+  computed: {
+    ...mapState(["allCountries"]),
   },
   created() {
-    this.getCountries();
-  },
-  mounted() {
-    // this.joke = this.$store.getters.getCurrentJoke;
+    this.$store.dispatch("getAllCountries");
   },
 };
 </script>
