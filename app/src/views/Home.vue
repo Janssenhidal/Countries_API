@@ -1,5 +1,6 @@
 <template>
   <main>
+    <h3>{{ joke }}</h3>
     <div class="homepage">
       <SearchArea />
       <div class="cards">
@@ -25,6 +26,7 @@ export default {
   },
   data() {
     return {
+      joke: "",
       countries: [],
     };
   },
@@ -43,6 +45,9 @@ export default {
   },
   created() {
     this.getCountries();
+  },
+  mounted() {
+    // this.joke = this.$store.getters.getCurrentJoke;
   },
 };
 </script>
