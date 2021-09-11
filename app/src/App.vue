@@ -1,15 +1,29 @@
 <template>
-  <Header />
+  <Header @colourThemeToggle="toggleTheme" />
   <router-view></router-view>
 </template>
 
 <script>
 import Header from "./components/Header.vue";
-
+import { mapState } from "vuex";
 export default {
   name: "App",
   components: {
     Header,
+  },
+  methods: {
+    toggleTheme() {
+      if (this.darkMode) {
+        console.log(this.darkMode);
+        document.documentElement.setAttribute("data-theme", "dark");
+      } else {
+        console.log(this.darkMode);
+        document.documentElement.setAttribute("data-theme", "light-theme");
+      }
+    },
+  },
+  computed: {
+    ...mapState(["darkMode"]),
   },
 };
 </script>
@@ -34,6 +48,6 @@ export default {
 }
 body {
   background-color: var(--background);
-  color: #fff;
+  color: var(--text);
 }
 </style>

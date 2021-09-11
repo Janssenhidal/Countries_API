@@ -10,7 +10,7 @@ const store = createStore({
         selectedCountry: Object(),
         selectedRegion: '',
         borders: [],
-        testing: "testing",
+        darkMode: true,
     },
     mutations: {
         setCountries(state, payload) {
@@ -27,7 +27,9 @@ const store = createStore({
         },
         regionSelect(state, payload) {
             state.selectedRegion = payload
-            console.log(state.selectedRegion);
+        },
+        colourThemeToggle(state) {
+            state.darkMode = !state.darkMode
         }
     },
     actions: {
@@ -79,7 +81,7 @@ const store = createStore({
         },
         filterByRegion: state => {
             return state.allCountries.filter(country => country.region === state.selectedRegion)
-        }
+        },
     }
 })
 const app = createApp(App)

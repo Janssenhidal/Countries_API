@@ -2,7 +2,7 @@
   <header>
     <div class="header-container">
       <router-link to="/"><h3>Where in the World?</h3></router-link>
-      <span>
+      <span @click="colourTheme()">
         <i class="fas fa-moon"></i>
         <p>Dark Mode</p></span
       >
@@ -13,7 +13,12 @@
 <script>
 export default {
   name: "Header",
-  props: {},
+  methods: {
+    colourTheme() {
+      this.$store.commit("colourThemeToggle");
+      this.$emit("colourThemeToggle");
+    },
+  },
 };
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -24,7 +29,6 @@ header {
 .header-container {
   display: flex;
   justify-content: space-between;
-  color: #fff;
   width: 90%;
   margin: auto;
   padding: 1.5rem 0rem;
@@ -36,6 +40,6 @@ span {
 }
 a {
   text-decoration: none;
-  color: #fff;
+  color: var(--text);
 }
 </style>
