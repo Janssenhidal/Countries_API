@@ -142,22 +142,24 @@ export default {
   padding-top: 5rem;
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 1rem;
+  gap: 2rem;
 }
 .flag-wrapper {
-  width: 600px;
-  height: 400px;
+  max-width: 700px;
+  height: auto;
 }
 img {
-  object-fit: cover;
-  width: 100%;
-  height: 100%;
+  object-fit: fill;
+  max-width: 100%;
+  max-height: 100%;
   box-shadow: 0 0 20px black;
   border-radius: 5px;
 }
 
 .country-details {
-  padding-top: 5%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
   h1 {
     color: var(--primary-color);
   }
@@ -166,6 +168,7 @@ img {
   display: grid;
   grid-template-columns: 1fr 1fr;
   margin-top: 2rem;
+  gap: 2rem;
   ul {
     display: flex;
     flex-direction: column;
@@ -183,7 +186,7 @@ img {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
-  margin-top: 5rem;
+  margin-top: 2rem;
   gap: 1rem;
 }
 .borders {
