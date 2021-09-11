@@ -1,21 +1,204 @@
 <template>
-  <h1>Idk</h1>
+  <div class="container">
+    <a class="back" @click="$router.go(-1)"
+      ><i class="fa fa-long-arrow-left" aria-hidden="true"></i>Back</a
+    >
+    <div class="content-wrapper" v-if="selectedCountry">
+      <div class="flag-wrapper">
+        <img :src="selectedCountry.flag" alt="" />
+      </div>
+
+      <div class="country-details">
+        <h1>{{ selectedCountry.name }}</h1>
+        <div class="lists">
+          <ul>
+            <li>
+              Native Name: <span>{{ selectedCountry.nativeName }}</span>
+            </li>
+            <li>
+              Population: <span> {{ population }}</span>
+            </li>
+            <li>
+              Region: <span>{{ selectedCountry.region }}</span>
+            </li>
+            <li>
+              Sub Region: <span>{{ selectedCountry.subregion }}</span>
+            </li>
+            <li>
+              Capital: <span>{{ selectedCountry.capital }}</span>
+            </li>
+          </ul>
+          <ul>
+            <li>
+              Top Level Domain:
+              <span>{{ topLevelDomain }}</span>
+            </li>
+            <li>
+              Currencies: <span>{{ currency }}</span>
+            </li>
+            <li>
+              Languages: <span>{{ languages }}</span>
+            </li>
+          </ul>
+        </div>
+        <div class="borders-wrapper">
+          <p>Border Countries:</p>
+          <ul class="borders">
+            <li
+              v-for="(border, index) in borders"
+              :key="index"
+              @click="goToCountry(border)"
+            >
+              {{ border.name }}
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "CountryDetails",
-  return() {
-    return {
-      countryData: [],
-    };
+  methods: {
+    loadCountry() {
+      this.$store.dispatch("selectCountry", this.$route.params.countryName);
+      this.$store.dispatch("findBorders", this.$route.params.countryName);
+    },
+    resetBorders() {
+      this.$store.commit("resetBorders");
+    },
+    goToCountry(border) {
+      this.$router.push({
+        path: `/country/${border.alpha3Code}`,
+      });
+      this.$store.dispatch("selectCountry", border.alpha3Code);
+    },
   },
-  created() {},
+  computed: {
+    ...mapState(["selectedCountry", "borders"]),
+    languages() {
+      let listOfLanguages = [];
+      if (this.selectedCountry.languages) {
+        this.selectedCountry.languages.forEach((language) => {
+          listOfLanguages.push(language.name);
+        });
+        return listOfLanguages.join(", ");
+      }
+      return "";
+    },
+    population() {
+      return this.selectedCountry.population
+        ? this.selectedCountry.population
+            .toString()
+            .replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+        : "";
+    },
+    currency() {
+      return this.selectedCountry.currencies
+        ? this.selectedCountry.currencies[0].name
+        : "";
+    },
+    topLevelDomain() {
+      return this.selectedCountry.topLevelDomain
+        ? this.selectedCountry.topLevelDomain.join(", ")
+        : "";
+    },
+  },
+  created() {
+    this.loadCountry();
+  },
+  watch: {
+    "$route.params.countryName": function () {
+      this.resetBorders();
+      this.loadCountry();
+    },
+  },
 };
 </script>
-
 <style lang="scss" scoped>
-h1 {
-  color: red;
+.container {
+  width: 90%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 4rem;
+}
+.back {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 130px;
+  gap: 0.75rem;
+  cursor: pointer;
+  background-color: var(--elements);
+  font-size: 14px;
+  padding: 0.5rem 2rem;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  border-radius: 0.2rem;
+}
+.content-wrapper {
+  padding-top: 5rem;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+.flag-wrapper {
+  width: 600px;
+  height: 400px;
+}
+img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+  box-shadow: 0 0 20px black;
+  border-radius: 5px;
+}
+
+.country-details {
+  padding-top: 5%;
+  h1 {
+    color: var(--primary-color);
+  }
+}
+.lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  margin-top: 2rem;
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  li {
+    list-style: none;
+    font-weight: 600;
+    span {
+      font-weight: 300;
+    }
+  }
+}
+.borders-wrapper {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 5rem;
+  gap: 1rem;
+}
+.borders {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  font-size: 14px;
+  cursor: pointer;
+  align-items: center;
+
+  li {
+    list-style: none;
+    background-color: var(--elements);
+    box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
+    padding: 0.25rem 2rem;
+  }
 }
 </style>

@@ -7,27 +7,80 @@ import axios from "axios";
 const store = createStore({
     state: {
         allCountries: [],
-        testing: "IDK what is going on!"
+        selectedCountry: Object(),
+        selectedRegion: '',
+        borders: [],
+        testing: "testing",
     },
     mutations: {
         setCountries(state, payload) {
             state.allCountries = payload;
+        },
+        setSelectedCountry(state, payload) {
+            state.selectedCountry = payload;
+        },
+        setBorders(state, payload) {
+            state.borders = payload;
+        },
+        resetBorders(state) {
+            state.borders = [];
+        },
+        regionSelect(state, payload) {
+            state.selectedRegion = payload
+            console.log(state.selectedRegion);
         }
     },
     actions: {
         async getAllCountries(context) {
             try {
                 const response = await axios.get('https://restcountries.eu/rest/v2/all');
-                console.log(response.data);
                 context.commit("setCountries", response.data)
             } catch (error) {
                 console.error(error);
             }
+        },
+        async selectCountry(context, code) {
+            if (code != null) {
+                try {
+                    const response = await axios.get('https://restcountries.eu/rest/v2/alpha/' + code);
+                    context.commit("setSelectedCountry", response.data)
+                } catch (error) {
+                    console.error(error);
+                }
+            }
+        },
+        findBorders(context, code) {
+            if (code != null) {
+                axios.get('https://restcountries.eu/rest/v2/alpha/' + code + '?fields=borders')
+                    .then(response => {
+                        let query = response.data.borders
+                        query = query.join(';').split(',')
+                        if (query != "") {
+                            axios.get('https://restcountries.eu/rest/v2/alpha?codes=' + query)
+                                .then(function (response) {
+                                    context.commit("setBorders", response.data)
+                                    console.log(response.data)
+                                })
+                        }
+                    })
+                    .catch(function (error) {
+                        console.log(error);
+                    })
+            }
         }
     },
-    modules: {
-    },
-    getters: {}
+    modules: {},
+    getters: {
+        allCountries: state => {
+            return state.allCountries
+        },
+        borders: state => {
+            return state.borders
+        },
+        filterByRegion: state => {
+            return state.allCountries.filter(country => country.region === state.selectedRegion)
+        }
+    }
 })
 const app = createApp(App)
 app.use(store)

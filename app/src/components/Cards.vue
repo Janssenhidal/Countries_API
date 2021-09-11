@@ -35,22 +35,20 @@ export default {
   },
   methods: {
     selectThisCountry() {
-      let data = this.country;
-      console.log(data);
       this.$router.push({
         path: `/country/${this.country.alpha3Code}`,
       });
+      this.$store.dispatch("selectCountry", this.country.alpha3Code);
     },
   },
 };
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/_variables.scss";
 .card {
   cursor: pointer;
   height: 100%;
-  background-color: $Dark_Blue;
+  background-color: var(--elements);
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   display: flex;

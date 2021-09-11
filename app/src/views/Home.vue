@@ -1,10 +1,10 @@
 <template>
   <main>
     <div class="homepage">
-      <SearchArea />
+      <SearchArea @filterActive="filterActive = true" />
       <div class="cards">
         <Cards
-          v-for="(country, index) in allCountries"
+          v-for="(country, index) in countries"
           :key="index"
           :country="country"
         ></Cards>
@@ -14,17 +14,26 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
 import SearchArea from "../components/Search_Area.vue";
 import Cards from "../components/Cards.vue";
 export default {
   name: "Body",
+  data() {
+    return {
+      filterActive: false,
+    };
+  },
   components: {
     SearchArea,
     Cards,
   },
   computed: {
-    ...mapState(["allCountries"]),
+    countries() {
+      if (this.filterActive) {
+        return this.$store.getters.filterByRegion;
+      }
+      return this.$store.getters.allCountries;
+    },
   },
   created() {
     this.$store.dispatch("getAllCountries");
@@ -33,11 +42,6 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "../scss/_variables.scss";
-main {
-  background-color: $Very_Dark_Blue;
-  color: #fff;
-}
 .homepage {
   width: 90%;
   margin-left: auto;

@@ -16,11 +16,10 @@ export default {
 </script>
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-@import "../scss/_variables.scss";
 header {
   display: flex;
   justify-content: space-between;
-  background-color: $Dark_Blue;
+  background-color: var(--elements);
   color: #fff;
   padding: 1.5rem 3rem;
 }
