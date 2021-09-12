@@ -29,6 +29,7 @@ header {
 .header-container {
   display: flex;
   justify-content: space-between;
+  align-items: center;
   width: 90%;
   margin: auto;
   padding: 1.5rem 0rem;
@@ -39,6 +40,10 @@ span {
   gap: 1rem;
   cursor: pointer;
   padding: 0.5rem;
+  &:hover {
+    background-color: var(--hover);
+    border-radius: 5px;
+  }
 }
 a {
   text-decoration: none;

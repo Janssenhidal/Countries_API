@@ -54,6 +54,11 @@ export default {
   display: flex;
   flex-direction: column;
   align-self: start;
+  transition: all 0.2s ease-in-out;
+
+  &:hover {
+    transform: scale(1.1);
+  }
 }
 .country-details {
   padding: 1.5rem;

@@ -137,6 +137,10 @@ export default {
   padding: 0.5rem 2rem;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   border-radius: 0.2rem;
+  &:hover {
+    background-color: #4bb19ea8;
+    border-radius: 5px;
+  }
 }
 .content-wrapper {
   padding-top: 5rem;
@@ -202,6 +206,10 @@ img {
     background-color: var(--elements);
     box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 5px;
     padding: 0.25rem 2rem;
+    &:hover {
+      background-color: var(--hover);
+      border-radius: 5px;
+    }
   }
 }
 </style>

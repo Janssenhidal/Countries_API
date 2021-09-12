@@ -1,7 +1,7 @@
 <template>
   <div class="container">
     <div class="search-wrapper">
-      <div class="div">
+      <div class="input-wrapper">
         <i class="fas fa-search"></i>
         <input
           type="text"
@@ -19,7 +19,7 @@
         class="search-panel"
       >
         <li
-          v-for="(result, index) in filterResults"
+          v-for="(result, index) in filterResults.slice(0, 10)"
           :key="index"
           @click="setResult(result)"
           :class="{ 'is-active': index === arrowCounter }"
@@ -131,14 +131,24 @@ export default {
   padding-left: 2rem;
   width: 500px;
 }
+.input-wrapper {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
 input {
   color: #fff;
   background: transparent;
   outline: 0;
   border: 0;
-  padding: 0.75rem 1.5rem;
+  padding: 0.75rem 0.5rem;
   font-size: 14px;
   width: 450px;
+  color: var(--text);
+  &:focus {
+    background: linear-gradient(var(--hover), var(--hover)) center bottom 5px /
+      calc(100% - 10px) 2px no-repeat;
+  }
 }
 .search-panel {
   position: absolute;
@@ -151,6 +161,7 @@ input {
   flex-direction: column;
   gap: 1rem;
   border-radius: 5px;
+  z-index: 10;
   li {
     list-style: none;
     display: flex;
@@ -159,13 +170,11 @@ input {
     padding-left: 2.5rem;
     cursor: pointer;
     &:hover {
-      background-color: #4aae9b;
-      color: white;
+      background-color: var(--hover);
     }
   }
   .is-active {
-    background-color: #4aae9b;
-    color: white;
+    background-color: var(--hover);
   }
   img {
     object-fit: cover;
@@ -202,6 +211,11 @@ input {
   p {
     padding: 0.3rem;
     cursor: pointer;
+    &:hover {
+      background-color: #4bb19ea8;
+      color: white;
+      border-radius: 5px;
+    }
   }
 }
 </style>

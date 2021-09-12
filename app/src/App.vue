@@ -34,6 +34,7 @@ export default {
   --elements: hsl(209, 23%, 22%);
   --background: hsl(207, 26%, 17%);
   --text: hsl(0, 0%, 100%);
+  --hover: #4bb19ea8;
 }
 [data-theme="light-theme"] {
   --elements: hsl(0, 0%, 100%);
