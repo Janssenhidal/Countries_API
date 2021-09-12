@@ -37,6 +37,8 @@ span {
   display: flex;
   align-items: center;
   gap: 1rem;
+  cursor: pointer;
+  padding: 0.5rem;
 }
 a {
   text-decoration: none;

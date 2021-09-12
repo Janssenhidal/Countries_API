@@ -75,6 +75,7 @@ export default {
   height: 160px;
 }
 img {
+  border-radius: 5px 5px 0px 0px;
   width: 100%;
   height: 100%;
   object-fit: cover;

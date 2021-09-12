@@ -1,15 +1,33 @@
 <template>
-  <div class="search-area">
+  <div class="container">
     <div class="search-wrapper">
-      <label for="searchBox">
+      <div class="div">
         <i class="fas fa-search"></i>
-      </label>
-      <input
-        type="text"
-        id="searchBox"
-        aria-placeholder="Search for a country..."
-        placeholder="Search for a country..."
-      />
+        <input
+          type="text"
+          aria-placeholder="Search for a country..."
+          placeholder="Search for a country..."
+          v-model="search"
+          @input="onChange"
+          @keydown.down="onArrowDown"
+          @keydown.up="onArrowUp"
+          @keydown.enter="onArrowEnter"
+        />
+      </div>
+      <ul
+        v-show="isOpen && search != '' && filterResults.length != 0"
+        class="search-panel"
+      >
+        <li
+          v-for="(result, index) in filterResults"
+          :key="index"
+          @click="setResult(result)"
+          :class="{ 'is-active': index === arrowCounter }"
+        >
+          <img :src="result.flag" alt="Flag" />
+          {{ result.name }}
+        </li>
+      </ul>
     </div>
     <div class="filter">
       <div class="filter-chevron" @click="filter = !filter">
@@ -37,6 +55,10 @@ export default {
     return {
       filter: false,
       options: ["Africa", "Americas", "Asia", "Europe", "Oceania"],
+      search: "",
+      isOpen: false,
+      searchValue: [],
+      arrowCounter: -1,
     };
   },
   methods: {
@@ -44,33 +66,113 @@ export default {
       this.$store.commit("regionSelect", option);
       this.$emit("filterActive");
     },
+    setResult(result) {
+      this.search = result.name;
+      this.isOpen = false;
+      this.$router.push({
+        path: `/country/${result.alpha3Code}`,
+      });
+    },
+    handleClickOutside(event) {
+      if (!this.$el.contains(event.target)) {
+        this.isOpen = false;
+        this.arrowCounter = -1;
+      }
+    },
+    onChange() {
+      this.isOpen = true;
+    },
+    onArrowUp() {
+      if (this.arrowCounter > 0) {
+        this.arrowCounter = this.arrowCounter - 1;
+      }
+    },
+    onArrowDown() {
+      if (this.arrowCounter < this.filterResults.length) {
+        this.arrowCounter = this.arrowCounter + 1;
+      }
+    },
+    onArrowEnter() {
+      this.arrowCounter = -1;
+      this.isOpen = false;
+    },
   },
   computed: {
     ...mapState(["allCountries"]),
+    filterResults() {
+      return this.allCountries.filter((item) =>
+        item.name.toLowerCase().includes(this.search.toLowerCase())
+      );
+    },
+  },
+  mounted() {
+    document.addEventListener("click", this.handleClickOutside);
+  },
+  unmounted() {
+    document.removeEventListener("click", this.handleClickOutside);
   },
 };
 </script>
 
 <style lang="scss" scoped>
-.search-area {
+.container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
 }
 .search-wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
   background-color: var(--elements);
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding-left: 2rem;
+  width: 500px;
 }
 input {
   color: #fff;
   background: transparent;
   outline: 0;
   border: 0;
-  width: 400px;
   padding: 0.75rem 1.5rem;
   font-size: 14px;
+  width: 450px;
+}
+.search-panel {
+  position: absolute;
+  top: 3rem;
+  left: 0;
+  padding: 1rem 0rem;
+  background-color: var(--elements);
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  border-radius: 5px;
+  li {
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding-left: 2.5rem;
+    cursor: pointer;
+    &:hover {
+      background-color: #4aae9b;
+      color: white;
+    }
+  }
+  .is-active {
+    background-color: #4aae9b;
+    color: white;
+  }
+  img {
+    object-fit: cover;
+    width: 50px;
+    height: 35px;
+    border-radius: 2px;
+  }
 }
 .filter {
   position: relative;
