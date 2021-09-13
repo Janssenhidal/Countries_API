@@ -86,9 +86,11 @@ export default {
     },
     onArrowEnter() {
       this.isOpen = false;
-      this.$router.push({
-        path: `/country/${this.results[this.arrowCounter].alpha3Code}`,
-      });
+      if (this.search != "") {
+        this.$router.push({
+          path: `/country/${this.results[this.arrowCounter].alpha3Code}`,
+        });
+      }
       this.arrowCounter = -1;
     },
   },

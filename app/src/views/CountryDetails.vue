@@ -151,6 +151,7 @@ export default {
 .flag-wrapper {
   max-width: 700px;
   max-height: 450px;
+  margin: auto;
 }
 img {
   object-fit: fill;

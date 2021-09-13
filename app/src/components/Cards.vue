@@ -55,7 +55,6 @@ export default {
   flex-direction: column;
   align-self: start;
   transition: all 0.2s ease-in-out;
-
   &:hover {
     transform: scale(1.1);
   }
