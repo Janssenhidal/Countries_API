@@ -36,7 +36,7 @@ Users should be able to:
 ![](./src/assets/Screenshot_2.jpg)
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
+- Solution URL: [Solution](https://www.frontendmentor.io/solutions/countries-api-vuevuex-router-scss-VCKe8ij1k)
 - Live Site URL: [JS Countries API](https://js-countries-api.netlify.app/)
 
 ## My process

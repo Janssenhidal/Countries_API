@@ -2,10 +2,10 @@
   <header>
     <div class="header-container">
       <router-link to="/"><h3>Where in the World?</h3></router-link>
-      <span @click="colourTheme()">
+      <div class="dark-mode" @click="colourTheme()">
         <i class="fas fa-moon"></i>
-        <p>Dark Mode</p></span
-      >
+        <p>Dark Mode</p>
+      </div>
     </div>
   </header>
 </template>
@@ -34,7 +34,7 @@ header {
   margin: auto;
   padding: 1.5rem 0rem;
 }
-span {
+.dark-mode {
   display: flex;
   align-items: center;
   gap: 1rem;

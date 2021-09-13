@@ -6,6 +6,7 @@
         <input
           type="text"
           aria-placeholder="Search for a country..."
+          role="search"
           placeholder="Search for a country..."
           v-model="search"
           @input="onChange"

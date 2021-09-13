@@ -230,7 +230,7 @@ img {
       margin: auto;
     }
   }
-  .borders {
+  .borders-wrapper {
     padding-bottom: 2rem;
   }
 }
