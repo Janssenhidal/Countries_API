@@ -65,7 +65,6 @@ const store = createStore({
                             axios.get('https://restcountries.eu/rest/v2/alpha?codes=' + query)
                                 .then(function (response) {
                                     context.commit("setBorders", response.data)
-                                    console.log(response.data)
                                 })
                         }
                     })

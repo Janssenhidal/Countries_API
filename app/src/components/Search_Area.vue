@@ -15,11 +15,11 @@
         />
       </div>
       <ul
-        v-show="isOpen && search != '' && filterResults.length != 0"
+        v-show="isOpen && search != '' && results.length != 0"
         class="search-panel"
       >
         <li
-          v-for="(result, index) in filterResults.slice(0, 10)"
+          v-for="(result, index) in results.slice(0, 10)"
           :key="index"
           @click="setResult(result)"
           :class="{ 'is-active': index === arrowCounter }"
@@ -48,6 +48,7 @@ export default {
       isOpen: false,
       searchValue: [],
       arrowCounter: -1,
+      results: [],
     };
   },
   methods: {
@@ -66,6 +67,12 @@ export default {
     },
     onChange() {
       this.isOpen = true;
+      this.filterResults();
+    },
+    filterResults() {
+      this.results = this.allCountries.filter((item) =>
+        item.name.toLowerCase().includes(this.search.toLowerCase())
+      );
     },
     onArrowUp() {
       if (this.arrowCounter > 0) {
@@ -73,22 +80,20 @@ export default {
       }
     },
     onArrowDown() {
-      if (this.arrowCounter < this.filterResults.length) {
+      if (this.arrowCounter < this.results.length) {
         this.arrowCounter = this.arrowCounter + 1;
       }
     },
     onArrowEnter() {
-      this.arrowCounter = -1;
       this.isOpen = false;
+      this.$router.push({
+        path: `/country/${this.results[this.arrowCounter].alpha3Code}`,
+      });
+      this.arrowCounter = -1;
     },
   },
   computed: {
     ...mapState(["allCountries"]),
-    filterResults() {
-      return this.allCountries.filter((item) =>
-        item.name.toLowerCase().includes(this.search.toLowerCase())
-      );
-    },
   },
   mounted() {
     document.addEventListener("click", this.handleClickOutside);
@@ -114,7 +119,7 @@ export default {
   border-radius: 5px;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   padding-left: 2rem;
-  width: 500px;
+  width: 50%;
 }
 .input-wrapper {
   display: flex;
@@ -128,7 +133,7 @@ input {
   border: 0;
   padding: 0.75rem 0.5rem;
   font-size: 14px;
-  width: 450px;
+  max-width: 450px;
   color: var(--text);
   &:focus {
     background: linear-gradient(var(--hover), var(--hover)) center bottom 5px /

@@ -27,10 +27,8 @@ export default {
     ...mapState(["filterState"]),
     countries() {
       if (this.filterState) {
-        console.log("True");
         return this.$store.getters.filterByRegion;
       }
-      console.log("False");
       return this.$store.getters.allCountries;
     },
   },
