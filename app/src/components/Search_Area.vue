@@ -29,31 +29,20 @@
         </li>
       </ul>
     </div>
-    <div class="filter">
-      <div class="filter-chevron" @click="filter = !filter">
-        <p>Filter by Region</p>
-        <i class="fas fa-chevron-down"></i>
-      </div>
-      <div class="dropdown-filter" v-if="filter">
-        <p
-          v-for="(option, index) in options"
-          :key="index"
-          @click="makeSelection(option)"
-        >
-          {{ option }}
-        </p>
-      </div>
-    </div>
+    <Filter :options="options" />
   </div>
 </template>
 
 <script>
 import { mapState } from "vuex";
+import Filter from "./filterBy.vue";
 export default {
   name: "Search_Area",
+  components: {
+    Filter,
+  },
   data() {
     return {
-      filter: false,
       options: ["Africa", "Americas", "Asia", "Europe", "Oceania"],
       search: "",
       isOpen: false,
@@ -62,10 +51,6 @@ export default {
     };
   },
   methods: {
-    makeSelection(option) {
-      this.$store.commit("regionSelect", option);
-      this.$emit("filterActive");
-    },
     setResult(result) {
       this.search = result.name;
       this.isOpen = false;
@@ -181,41 +166,6 @@ input {
     width: 50px;
     height: 35px;
     border-radius: 2px;
-  }
-}
-.filter {
-  position: relative;
-  font-size: 14px;
-  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
-}
-.filter-chevron {
-  background-color: var(--elements);
-  display: flex;
-  align-items: center;
-  padding: 0.75rem 1.5rem;
-  border-radius: 5px;
-  gap: 1rem;
-  cursor: pointer;
-}
-.dropdown-filter {
-  display: none;
-  position: absolute;
-  margin-top: 5px;
-  background-color: var(--elements);
-  display: flex;
-  flex-direction: column;
-  padding: 1rem 1.5rem;
-  gap: 0.2rem;
-  border-radius: 5px;
-  width: 100%;
-  p {
-    padding: 0.3rem;
-    cursor: pointer;
-    &:hover {
-      background-color: #4bb19ea8;
-      color: white;
-      border-radius: 5px;
-    }
   }
 }
 </style>

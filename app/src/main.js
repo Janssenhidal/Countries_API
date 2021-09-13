@@ -11,6 +11,7 @@ const store = createStore({
         selectedRegion: '',
         borders: [],
         darkMode: true,
+        filterState: false,
     },
     mutations: {
         setCountries(state, payload) {
@@ -30,6 +31,9 @@ const store = createStore({
         },
         colourThemeToggle(state) {
             state.darkMode = !state.darkMode
+        },
+        filterActivate(state) {
+            state.filterState = true
         }
     },
     actions: {

@@ -1,7 +1,7 @@
 <template>
   <main>
     <div class="homepage">
-      <SearchArea @filterActive="filterActive = true" />
+      <SearchArea />
       <div class="cards">
         <Cards
           v-for="(country, index) in countries"
@@ -14,24 +14,23 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 import SearchArea from "../components/Search_Area.vue";
 import Cards from "../components/Cards.vue";
 export default {
   name: "Body",
-  data() {
-    return {
-      filterActive: false,
-    };
-  },
   components: {
     SearchArea,
     Cards,
   },
   computed: {
+    ...mapState(["filterState"]),
     countries() {
-      if (this.filterActive) {
+      if (this.filterState) {
+        console.log("True");
         return this.$store.getters.filterByRegion;
       }
+      console.log("False");
       return this.$store.getters.allCountries;
     },
   },

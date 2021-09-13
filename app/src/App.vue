@@ -40,6 +40,7 @@ export default {
   --elements: hsl(0, 0%, 100%);
   --background: hsl(0, 0%, 98%);
   --text: hsl(200, 15%, 8%);
+  --hover: #d3d3d3;
 }
 * {
   margin: 0;
