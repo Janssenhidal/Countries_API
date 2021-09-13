@@ -123,7 +123,7 @@ export default {
   width: 90%;
   margin-left: auto;
   margin-right: auto;
-  padding-top: 4rem;
+  padding-top: 5%;
 }
 .back {
   display: flex;
@@ -143,14 +143,14 @@ export default {
   }
 }
 .content-wrapper {
-  padding-top: 5rem;
+  padding-top: 5%;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 2rem;
 }
 .flag-wrapper {
   max-width: 700px;
-  height: auto;
+  max-height: 450px;
 }
 img {
   object-fit: fill;
@@ -192,6 +192,10 @@ img {
   align-items: center;
   margin-top: 2rem;
   gap: 1rem;
+
+  p {
+    font-weight: 600;
+  }
 }
 .borders {
   display: flex;
@@ -210,6 +214,29 @@ img {
       background-color: var(--hover);
       border-radius: 5px;
     }
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .content-wrapper {
+    grid-template-columns: 1fr;
+  }
+  .flag-wrapper {
+    margin: auto;
+    width: 100%;
+    height: 100%;
+    img {
+      display: block;
+      margin: auto;
+    }
+  }
+  .borders {
+    padding-bottom: 2rem;
+  }
+}
+@media only screen and (max-width: 1000px) {
+  .lists {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }
 </style>

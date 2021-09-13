@@ -133,7 +133,7 @@ input {
   border: 0;
   padding: 0.75rem 0.5rem;
   font-size: 14px;
-  max-width: 450px;
+  width: 90%;
   color: var(--text);
   &:focus {
     background: linear-gradient(var(--hover), var(--hover)) center bottom 5px /
@@ -171,6 +171,20 @@ input {
     width: 50px;
     height: 35px;
     border-radius: 2px;
+  }
+}
+
+@media only screen and (max-width: 470px) {
+  .container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  .search-wrapper {
+    width: 100%;
+  }
+  input {
+    width: 90%;
   }
 }
 </style>

@@ -63,11 +63,11 @@ export default {
 .country-details {
   padding: 1.5rem;
   h1 {
-    font-size: 16px;
+    font-size: 1.1rem;
     font-weight: 800;
   }
   h2 {
-    font-size: 14px;
+    font-size: 1rem;
     font-weight: 600;
     padding-top: 0.5rem;
   }

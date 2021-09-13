@@ -52,4 +52,9 @@ body {
   background-color: var(--background);
   color: var(--text);
 }
+@media only screen and (max-width: 470px) {
+  * {
+    font-size: 14px;
+  }
+}
 </style>
