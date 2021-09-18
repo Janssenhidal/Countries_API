@@ -52,7 +52,7 @@ Users should be able to:
 
 ### What I learned
 
-Overall in this project I have learned a lot of new valuable things. Some of which are the ability to use Vuex, auto-search completion and filtering a list.
+Overall in this project I have learned a lot of new valuable things, some of which are the ability to use Vuex, auto-search completion and filtering a list.
 
 ### Continued development
 
