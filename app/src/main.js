@@ -39,7 +39,7 @@ const store = createStore({
     actions: {
         async getAllCountries(context) {
             try {
-                const response = await axios.get('https://restcountries.eu/rest/v2/all');
+                const response = await axios.get('https://restcountries.com/v2/all');
                 context.commit("setCountries", response.data)
             } catch (error) {
                 console.error(error);
@@ -48,7 +48,7 @@ const store = createStore({
         async selectCountry(context, code) {
             if (code != null) {
                 try {
-                    const response = await axios.get('https://restcountries.eu/rest/v2/alpha/' + code);
+                    const response = await axios.get('https://restcountries.com/v2/alpha/' + code);
                     context.commit("setSelectedCountry", response.data)
                 } catch (error) {
                     console.error(error);
@@ -57,12 +57,12 @@ const store = createStore({
         },
         findBorders(context, code) {
             if (code != null) {
-                axios.get('https://restcountries.eu/rest/v2/alpha/' + code + '?fields=borders')
+                axios.get('https://restcountries.com/v2/alpha/' + code + '?fields=borders')
                     .then(response => {
                         let query = response.data.borders
                         query = query.join(';').split(',')
                         if (query != "") {
-                            axios.get('https://restcountries.eu/rest/v2/alpha?codes=' + query)
+                            axios.get('https://restcountries.eu/v2/alpha?codes=' + query)
                                 .then(function (response) {
                                     context.commit("setBorders", response.data)
                                 })
