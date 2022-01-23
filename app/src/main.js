@@ -62,7 +62,7 @@ const store = createStore({
                         let query = response.data.borders
                         query = query.join(';').split(',')
                         if (query != "") {
-                            axios.get('https://restcountries.eu/v2/alpha?codes=' + query)
+                            axios.get('https://restcountries.com/v2/alpha?codes=' + query)
                                 .then(function (response) {
                                     context.commit("setBorders", response.data)
                                 })
